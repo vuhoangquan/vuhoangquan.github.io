@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>news</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
+    <style>
+        #post_thumbnail {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 60%;
+        }
+    </style>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            // testWorldClockAPI();
+            computerTime();
+            window.onresize = windowResize();
+            // $('.container-fluid').each(function(i, obj) {
+            //     obj.onclick="location.href='index.html';";
+            // });
+
+        });
+        //check time with world clock API 
+        function testWorldClockAPI() {
+            var url = "http://worldclockapi.com/api/json/utc/now"
+            var xmlRequest = new XMLHttpRequest();
+            xmlRequest.open('GET', url, false);
+            xmlRequest.send();
+            jsonData = JSON.parse(xmlRequest.responseText);
+            utcDateTime = jsonData.currentDateTime;
+            currDateTime = jsonData["currentDateTime"];
+            console.log(currDateTime);
+            //change #datetime text to this time
+            document.querySelector('#dateTime').innerHTML = currDateTime;
+        }
+        function computerTime() {
+            var now = new Date();
+            document.querySelector('#dateTime').innerHTML = now;
+        }
+        function windowResize() {
+            var mq = window.matchMedia("(max-width: 850px)");
+            if (mq.matches) {
+                let brr = document.createElement('div');
+                brr.classList.add('w-100');
+                var list = document.getElementById("hightlight_thumbnail"); 
+                list.insertBefore(brr, list.childNodes[2]);
+            }
+            else {
+                // let brr = document.createElement('div');
+                // brr.classList.add('w-100');
+                // let text = document.createTextNode('Test2');
+                // brr.appendChild(text);
+                // var list = document.getElementById("hightlight_thumbnail"); 
+                // // list.insertBefore(brr, list.childNodes[2]);
+                // document.querySelector('#hightlight_thumbnail').append(brr);
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <nav id="top_menu" style="display:inline-flexbox;">
+        <img src="{% static 'posts/VnExpress.jpg' %}" style="display:inline-flexbox;" alt="logo icon" width="230"
+            height="70" />
+        <link rel="stylesheet" href="{% static 'posts/VnExpress.jpg' %}" alt=" links" />
+
+        <a style="display:inline-flexbox;font-size: 0.5cm;padding-right: 5%;" id="dateTime">date here</a>
+        <button id="top_menu_button" type="button" class="btn btn-primary" class="col-lg-2 col-sm-0">tin moi</button>
+        <button id="top_menu_button" type="button" class="btn btn-primary" class="col-lg-2 col-sm-0"
+            onclick="testWorldClockAPI">international</button>
+    </nav>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'posts:index' %}">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% for category in categories %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ category.name }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% for sub_category in sub_categories %}
+                            {% if sub_category.categories == category %}
+                            <li><a class="dropdown-item" href="#">{{ sub_category.name }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    {% block body %}
+    {% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

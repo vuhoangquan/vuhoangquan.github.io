@@ -1,0 +1,39 @@
+{% extends "posts/layout.html" %}
+
+{% block body %}
+    <br/>
+    <div id="center_body" class="container">
+        <div class="row justify-content-center" style="padding-left: 7%;padding-right: 7%;">
+            <h1> {{ post.title }}</h1>
+            <br/>
+            <br/>
+            <br/>
+
+            <div>
+                {% if post.thumbnail %}
+                <img id="post_thumbnail" src="{{ post.thumbnail.url }}" alt="post.thumbnail" class="row justify-content-center">
+                {% endif %}
+            </div>
+
+            <br/>
+            <br/>
+            <br/>
+
+            <div>
+                <h5> {{ post.content|linebreaks }} </h5>
+            </div>
+
+            <div>
+                <a href="{% url 'posts:author' post.author.id %}"> {{ post.author.name }} </a>
+            </div>
+        
+            <div id="post_tags" style="padding-bottom: 5%;">
+                {% for category in categories_tag %}
+                <button type="button" class="btn btn-outline-secondary" class="col-lg-1 col-sm-2" disabled>{{ category.name }}</button>
+                {% endfor %}
+            </div>
+        </div>        
+    </div>
+
+
+{% endblock %}
