@@ -1,8 +1,9 @@
 {% extends "posts/layout.html" %}
+{% load static %}
 
 {% block body %}
     <br/>
-    <div id="center_body" class="container">
+    <div id="center_body" class="container" style="min-height: 500px">
         <div class="row justify-content-center" style="padding-left: 7%;padding-right: 7%;">
             <h1> {{ post.title }}</h1>
             <br/>
@@ -27,13 +28,12 @@
                 <a href="{% url 'posts:author' post.author.id %}"> {{ post.author.name }} </a>
             </div>
         
-            <div id="post_tags" style="padding-bottom: 5%;">
+            <div id="post_tags" style="padding-bottom: 5%;" class="d-flex">
                 {% for category in categories_tag %}
                 <button type="button" class="btn btn-outline-secondary" class="col-lg-1 col-sm-2" disabled>{{ category.name }}</button>
                 {% endfor %}
             </div>
         </div>        
     </div>
-
 
 {% endblock %}

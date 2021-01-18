@@ -1,27 +1,53 @@
 {% extends "posts/layout.html" %}
 
 {% block body %}
-    <h1> Author: {{ author.name }}</h1>
-    <h1> </h1>
-    <h2> {{ author.address }}</h2>
-    <h3> posts that this writer works on: </h3>
-    <ul>
-    {% for post in posts %}
-        <li href=" {% url 'posts:post' post.id %}" > {{ post.title }} </li>
+
+    <div id="center_body" class="container">
+        <div class="row justify-content-center" style="padding-left: 7%;padding-right: 7%;">
+
+            <br/>
+            <br/>
+            <br/>
+
+            <h1> Author: {{ author.name }}</h1>
+            <h1> </h1>
+            <h2> {{ author.address }}</h2>
+            <h3> posts that this writer works on: </h3>
             <ul>
-                <li> {{ post.description }} </li>
+            {% for post in posts %}
+                <a href=" {% url 'posts:post' post.id %}" > {{ post.title }} </a>
+                    <ul>
+                        <li> {{ post.description }} </li>
+                    </ul>
+            {% endfor %}
             </ul>
-    {% endfor %}
-    </ul>
+            
+            <br/>
+            <br/>
+            <br/>
 
-    <h3> categories that this writer works on: </h3>
-    {% for category in categories_tag %}
-        <button type="button" class="btn btn-outline-secondary" disabled>{{ category.name }}</button>
-    {% endfor %}
+            <h3> categories that this writer works on: </h3>
+            <div class="d-flex">
+            {% for category in sub_categories_tag %}
+                <button type="button" class="btn btn-outline-secondary" disabled>{{ category.name }}</button>
+            {% endfor %}
+            </div>
 
-    <h3> sub categories that this writer works on: </h3>
-    {% for category in sub_categories_tag %}
-        <button type="button" class="btn btn-outline-secondary" disabled>{{ category.name }}</button>
-    {% endfor %}
+            <br/>
+            <br/>
+            <br/>
+
+            <h3> sub categories that this writer works on: </h3>
+            <div class="d-flex">
+            {% for category in sub_categories_tag %}
+                <button type="button" class="btn btn-outline-secondary" disabled>{{ category.name }}</button>
+            {% endfor %}
+            </div>
+
+
+        </div>        
+    </div>
+
+
 
 {% endblock %}

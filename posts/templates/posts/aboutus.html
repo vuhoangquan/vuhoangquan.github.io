@@ -1,0 +1,145 @@
+{% extends "posts/layout.html" %}
+{% load static %}
+
+{% block body %}
+    
+    <style type="text/css">
+        #topbar {
+            background-image: url(../../static/posts/aboutus1.jpg);
+            background-size: 100% 100%;
+        }
+
+        #intro, #event {
+            background: url(../../static/posts/1623px_vt.jpg) no-repeat fixed center center;
+            background-size: cover; /*this is background for whole page*/
+            color: white;
+        }
+
+        #facility {
+            background-color: lightblue;
+        }
+
+        #signin {
+            text-decoration: none;
+            position: absolute;
+            top: 15%;
+            left: 89%;
+            background-color: yellow;
+            padding: 1% 2% 1% 2%;
+            border: 1px solid gold;
+            color: black;
+            font-size: 20px;
+        }
+
+        #topbar, #review, #facility {
+            height: 700px;
+            width: 100%;
+        }
+
+        #leftbar {
+            float: left;
+            width: 95%;
+        }
+
+        #welcome {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 100px;
+            text-align: center;
+
+        }
+
+        #book {
+            text-decoration: none;
+            border: 2px solid green;
+            float: right;
+            margin-right: 3%;
+            margin-bottom: 3%;
+            padding: 2%;
+            background-color: aquamarine;
+            color: black;
+            font-size: 30px;
+        }
+         #boutus{
+            text-decoration: none;
+            border: 2px solid purple;
+            float: right;
+            margin-right: 3%;
+            margin-bottom: 3%;
+            padding: 2%;
+            background-color: mediumpurple;
+            color: black;
+            font-size: 30px;
+        }
+        /*display:inline-block;*/
+        #explore {
+            text-decoration: none;
+            border: 2px solid lightcoral;
+            position: absolute;
+            right: 60%;
+            top: 73%;
+            /*float: right;
+            margin-right: 3%;
+            margin-bottom: 3%;*/
+            padding: 2%;
+            background-color: lightcoral;
+            color: black;
+            font-size: 30px;
+        }
+
+        #evlink {
+            text-decoration: none;
+            border: 2px solid gold;
+            float: right;
+            margin-right: 3%;
+            margin-bottom: 3%;
+            margin-top: 10%;
+            padding: 2%;
+            background-color: yellow;
+            color: black;
+            font-size: 30px;
+        }
+
+        .discription {
+            width: auto;
+            display: block;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 30px;
+            text-shadow: -1px 1px 0 #000;
+            letter-spacing: 2px;
+            font: bold;
+            color: whitesmoke;
+        }
+
+        h1 {
+            font-size: 40px;
+        }
+    </style>
+
+<div style="margin-left: 2%;margin-right: 2%;margin-top: 2%;">
+    <div id="topbar">
+        <div id="leftbar">
+        </div>
+        <div>
+            <br /><br /><br /><br /><br /><br />
+            <p id="welcome">Về chúng tôi: </p>
+            <div style="padding-left: 5%;">
+                <p class="discription mx-auto"> Toà báo này là 1 tổ chức phi lợi nhuận với mục đích mang tới cho người đọc những thông tinh xác thực và bổ ích</p>
+                <p class="discription"> Các bài viết ở đây bao gồm nhiều thể loại từ kinh tế, tài chính cho tới sức khoẻ, gia đình và tin tức thế giới.</p>
+            
+            </div>
+            
+            <br />
+        </div>
+    </div>
+
+    <div id="intro" style="margin-top:1%; padding-top:10%;padding-left:7%; width:100%;height:600px;">
+        <br />
+        <h1>Lịch sử: </h1>
+        <p class="discription mx-auto" >Đây là toà báo đặt trụ sở ở Vũng Tàu</p>
+        <p class="discription">Có từ lâu đời, đã đi cùng vơi lịch sử thành phố<br /> Nằm ở số 123 Bacu, 1 trong những con đường buôn bán tấp nập và đầu tiên tại đây</p>
+        
+    </div>
+
+</div>
+    
+{% endblock %}
