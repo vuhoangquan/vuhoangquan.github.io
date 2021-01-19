@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <div id="center_body" class="container">
+    <div id="center_body" class="container" style="min-height: 650px;">
         <div class="row justify-content-center" style="padding-left: 7%;padding-right: 7%;">
 
             <br/>
@@ -11,11 +11,11 @@
 
             <h1> Author: {{ author.name }}</h1>
             <h1> </h1>
-            <h2> {{ author.address }}</h2>
+            <h2> Address: {{ author.address }}</h2>
             <h3> posts that this writer works on: </h3>
             <ul>
             {% for post in posts %}
-                <a href=" {% url 'posts:post' post.id %}" > {{ post.title }} </a>
+                <a href=" {% url 'posts:post' post.id %}" style="font-size:25px;"> {{ post.title }} </a>
                     <ul>
                         <li> {{ post.description }} </li>
                     </ul>
@@ -28,8 +28,9 @@
 
             <h3> categories that this writer works on: </h3>
             <div class="d-flex">
-            {% for category in sub_categories_tag %}
-                <button type="button" class="btn btn-outline-secondary" disabled>{{ category.name }}</button>
+            {% for category in categories_tag %}
+            <a href="{% url 'posts:category' category.id %}" class="btn btn-primary btn-lg " tabindex="-1" role="button" >{{ category.name }}</a>
+                <!-- <button type="button" class="btn btn-outline-secondary" disabled>{{ category.name }}</button> -->
             {% endfor %}
             </div>
 
@@ -40,6 +41,7 @@
             <h3> sub categories that this writer works on: </h3>
             <div class="d-flex">
             {% for category in sub_categories_tag %}
+            <!-- <a href="{% url 'posts:category' category.id %}" class="btn btn-primary btn-lg " tabindex="-1" role="button">{{ category.name }}</a> -->
                 <button type="button" class="btn btn-outline-secondary" disabled>{{ category.name }}</button>
             {% endfor %}
             </div>

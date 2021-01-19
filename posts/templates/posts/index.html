@@ -1,231 +1,60 @@
+{% extends "posts/layout.html" %}
 {% load static %}
 
+{% block body %}
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>News</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <script src="{% static 'posts/jquery-3.5.1.js' %}"></script>
-    <style>
-        @media only screen and (max-width: 850px) {
+<style>
+    /* @media only screen and (max-width: 850px) {
             #top_menu_button {
                 display: none;
             }
-        }
-
-        .carousel-item {
-            max-width: 100%;
-            max-height: 100%;
-            height: 100;
-            border: 1px solid lightblue;
-            border-radius: 7px;
-        }
-
-        a {
-            font-size: 0.7cm;
-            padding-left: 2%;
-        }
-
-        .dropdown-item {
-            font-size: 0.5cm;
-        }
-
-        #navbarDropdown {
-            font-size: 0.5cm;
-        }
-
-        #slide_title {
-            text-decoration: none;
-            color: rgba(0, 0, 0, 0.849);
-        }
-
-        .d-block.w-100 {
-            object-fit: fill !important;
-            width: 100%;
-            height: 100%;
-            max-height: 27rem;
-        }
-        h6 {
-            color: gray;
-            text-decoration: none;
-            font-size: larger;
-        }
-
-        /* #hightlight_image{
-            height: 370px;
-            width: 500px;
         } */
-       
-    </style>
-    <script>
 
-        document.addEventListener('DOMContentLoaded', function () {
-            computerTime();
-            window.onresize = windowResize();
-            
-            user_input = $("#search_input")
-            const artists_div = $('#replaceable-content')
-            const endpoint = '/posts/'
-            const delay_by_in_ms = 700
-            let scheduled_function = false
+    .carousel-item {
+        max-width: 100%;
+        max-height: 100%;
+        height: 100;
+        border: 1px solid lightblue;
+        border-radius: 7px;
+    }
 
-            let ajax_call = function (endpoint, request_parameters) {
-                $.getJSON(endpoint, request_parameters)
-                    .done(response => {
-                        // fade out the artists_div, then:
-                        artists_div.fadeTo('slow', 0).promise().then(() => {
-                            // replace the HTML contents
-                            artists_div.html(response['html_from_view'])
-                            // fade-in the div with new contents
-                            artists_div.fadeTo('slow', 1)
-                        })
-                    })
-            }
-            user_input.on('keyup', function () {
-                const request_parameters = {
-                    title: $(this).val() // value of user_input: the HTML element with ID user-input
-                }
-                console.log(request_parameters)
-                if (scheduled_function) {
-                    clearTimeout(scheduled_function)
-                }
-                scheduled_function = setTimeout(ajax_call, delay_by_in_ms, endpoint, request_parameters)
-            })
+    a {
+        font-size: 0.7cm;
+        padding-left: 2%;
+    }
 
-            $("#search_input").keydown(function(event) {
-                if (event.keyCode == 13) {
-                    event.preventDefault();
-                }
-            });
+    .dropdown-item {
+        font-size: 0.5cm;
+    }
 
-        });
-        
-        //check time with world clock API 
-        function testWorldClockAPI() {
-            var url = "http://worldclockapi.com/api/json/utc/now"
-            var xmlRequest = new XMLHttpRequest();
-            xmlRequest.open('GET', url, false);
-            xmlRequest.send();
-            jsonData = JSON.parse(xmlRequest.responseText);
-            utcDateTime = jsonData.currentDateTime;
-            currDateTime = jsonData["currentDateTime"];
-            console.log(currDateTime);
-            //change #datetime text to this time
-            document.querySelector('#dateTime').innerHTML = currDateTime;
-        }
+    #navbarDropdown {
+        font-size: 0.5cm;
+    }
 
-        function computerTime() {
-            var now = new Date();
-            document.querySelector('#dateTime').innerHTML = now;
-        }
+    #slide_title {
+        text-decoration: none;
+        color: rgba(0, 0, 0, 0.849);
+    }
 
-        function windowResize() {
-            var mq = window.matchMedia("(max-width: 850px)");
-            if (mq.matches) {
-                let brr = document.createElement('div');
-                brr.classList.add('w-100');
-                var list = document.getElementById("hightlight_thumbnail");
-                list.insertBefore(brr, list.childNodes[2]);
-            }
-            else {
-                // let brr = document.createElement('div');
-                // brr.classList.add('w-100');
-                // let text = document.createTextNode('Test2');
-                // brr.appendChild(text);
-                // var list = document.getElementById("hightlight_thumbnail"); 
-                // // list.insertBefore(brr, list.childNodes[2]);
-                // document.querySelector('#hightlight_thumbnail').append(brr);
-            }
-        }
+    .d-block.w-100 {
+        object-fit: fill !important;
+        width: 100%;
+        height: 100%;
+        max-height: 27rem;
+    }
 
-    </script>
-</head>
+    h6 {
+        color: gray;
+        text-decoration: none;
+        font-size: larger;
+    }
+</style>
 
-<body>
-    <div class="dropdown">
-        <img src="{% static 'posts/VnExpress.jpg' %}" style="display:inline-flexbox;" alt="logo icon" width="230"
-            height="70" />
-        <link rel="stylesheet" href="{% static 'posts/VnExpress.jpg' %}" alt=" links" />
-
-        <a style="display:inline-flexbox;font-size: 0.5cm;padding-right: 5%;" id="dateTime">date here</a>
-        <button id="top_menu_button" type="button" class="btn btn-primary dropdown-toggle"  data-bs-toggle="dropdown">sign in</button>
-            <!-- col-lg-2 col-sm-0 -->
-            <form class="dropdown-menu p-4">
-                <div class="mb-3">
-                  <label for="exampleDropdownFormEmail2" class="form-label">Email address</label>
-                  <input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com">
-                </div>
-                <div class="mb-3">
-                  <label for="exampleDropdownFormPassword2" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
-                </div>
-                <div class="mb-3">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="dropdownCheck2">
-                    <label class="form-check-label" for="dropdownCheck2">
-                      Remember me
-                    </label>
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Sign in</button>
-              </form>
-
-        <button id="top_menu_button" type="button" class="btn btn-primary" class="col-lg-2 col-sm-0"
-            onclick="testWorldClockAPI">international</button>
-    </div>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'posts:index' %}">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                    {% for category in categories %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ category.name }}
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            {% for sub_category in sub_categories %}
-                            {% if sub_category.categories == category %}
-                            <li><a class="dropdown-item" href="#">{{ sub_category.name }}</a></li>
-                            {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    {% endfor %}
-                </ul>
-                <form class="d-flex dropdown">
-                    <input id="search_input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                        Search
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end" aria-labelledby="dropdownMenu2">
-                        <div id="replaceable-content"> empty... </div>
-                        <li>
-                            <!-- <p id="replaceable-content" class="dropdown-item" > empty... </p> -->
-                        </li>
-                        
-                    </ul>
-                </form>
-            </div>
-        </div>
-    </nav>
 
     <div id="mainbody" class="row justify-content-center" style="padding-top: 3%;padding-left: 5%;">
         <div class="row justify-content-start">
 
-            <div id="highlight" class="col-lg-9 col-sm-12">
+            <div id="highlight" class="col-lg-8 col-sm-12">
 
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <ol class="carousel-indicators">
@@ -290,13 +119,11 @@
                             </div>
                         </div>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                        data-bs-slide="prev">
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                        data-bs-slide="next">
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </a>
@@ -305,6 +132,7 @@
             </div>
 
             {% for post in posts %}
+            {% if forloop.counter <= 8 and forloop.counter > 3 %} 
             <div class="card" style="width: 24rem; margin:5px;" class="col-lg-3 col-sm-4">
                 {% if post.thumbnail %}
                 <img src="{{ post.thumbnail.url }}" class="card-img-top" alt="post.thumbnail">
@@ -315,13 +143,51 @@
                     <a href="{% url 'posts:post' post.id %}" class="btn btn-primary">Go to post</a>
                 </div>
             </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+    <div class="container" >
+        <h3>Tin mới: </h3>
+        <div class="row overflow-auto" style="max-height:500px;width: 100%;">
+            {% for post in news_posts %}
+            {% if forloop.counter <= 4 %} 
+            <div class="card" style="width: 24rem; margin:5px; display: inline;" >
+                {% if post.thumbnail %}
+                <img src="{{ post.thumbnail.url }}" class="card-img-top" alt="post.thumbnail">
+                {% endif %}
+                <div class="card-body">
+                    <h4 class="card-title">{{ post.title }}</h4>
+                    <p class="card-text">{{ post.description }}</p>
+                    <a href="{% url 'posts:post' post.id %}" class="btn btn-primary">Go to post</a>
+                </div>
+            </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <div class="container">
+        <h3>Tài chính:  </h3>
+        <div class="row overflow-auto" style="max-height:500px;width: 100%;">
+            {% for post in business_posts %}
+            {% if forloop.counter <= 4 %} 
+            <div class="card" style="width: 24rem; margin:5px; display: inline;" >
+                {% if post.thumbnail %}
+                <img src="{{ post.thumbnail.url }}" class="card-img-top" alt="post.thumbnail">
+                {% endif %}
+                <div class="card-body">
+                    <h4 class="card-title">{{ post.title }}</h4>
+                    <p class="card-text">{{ post.description }}</p>
+                    <a href="{% url 'posts:post' post.id %}" class="btn btn-primary">Go to post</a>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
 
+        </div>
+    </div>
 
-</body>
+</div>
 
-</html>
+{% endblock %}

@@ -27,10 +27,12 @@
             <div>
                 <a href="{% url 'posts:author' post.author.id %}"> {{ post.author.name }} </a>
             </div>
-        
-            <div id="post_tags" style="padding-bottom: 5%;" class="d-flex">
+            <br/>
+            <br/>
+            <div style="padding-bottom: 5%;" class="d-flex">
                 {% for category in categories_tag %}
-                <button type="button" class="btn btn-outline-secondary" class="col-lg-1 col-sm-2" disabled>{{ category.name }}</button>
+                <a href="{% url 'posts:category' category.id %}" class="btn btn-primary btn-lg" tabindex="-1" role="button">{{ category.name }}</a>
+                <!-- <button type="button" class="btn btn-outline-secondary" class="col-lg-1 col-sm-2" disabled>{{ category.name }}</button> -->
                 {% endfor %}
             </div>
         </div>        

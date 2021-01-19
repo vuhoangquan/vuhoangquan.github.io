@@ -1,14 +1,20 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.contrib.auth import authenticate, login, logout
+
 
 from .models import Post, Author, Category, SubCategory
-
 from itertools import chain
 
 # Create your views here.
 def index(request):
+    cate_news = Category.objects.get(name="news")
+    news_posts = Post.objects.filter(categories=cate_news)
+    cate_business = Category.objects.get(name="Business")
+    business_posts = Post.objects.filter(categories=cate_business)
+    
     url_parameter = request.GET.get("title")
     if url_parameter:
         searches = Post.objects.filter(title__icontains=url_parameter)
@@ -27,11 +33,13 @@ def index(request):
         "posts":Post.objects.all(),
         "categories":Category.objects.all(),
         "sub_categories":SubCategory.objects.all(),
+        "news_posts": news_posts,
+        "business_posts": business_posts,
     })
     
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
-    categories = Category.objects.filter(posts = post).all()
+    categories = Category.objects.filter(post_categories = post)
     
     url_parameter = request.GET.get("title")
     if url_parameter:
@@ -54,30 +62,34 @@ def post(request, post_id):
         "sub_categories":SubCategory.objects.all()
     })
 
-categories1 = [] 
-sub_categories1 = []
+# categories1 = [] 
+# sub_categories1 = []
 
 def author(request, author_id):
     author = Author.objects.get(id=author_id)
-    posts = Post.objects.filter(author=author).all()
-    for post in posts:
-        category = post.post_categories.all()
-        categories1.append(category)
-    for category in categories1:
-        sub_categories1.append(category)
-    
-    # catefories1 = get_all_categories(author)
-    # categories1 = posts[1].post_categories.all()
-    # sub_categories = categories.main_categories.all()
-    # sub_categories = categories1[1].main_categories.all()
+    posts = Post.objects.filter(author=author)
+    categorys =Category.objects.filter(post_categories__in=posts)
+    sub_categorys =SubCategory.objects.filter(categories__in=categorys)
+
     
     return render(request, "posts/author.html", {
         "author":author,
         "posts":posts,
-        "categories_tag": categories1[0],
-        "sub_categories_tag": sub_categories1[0],
+        "categories_tag": categorys,
+        "sub_categories_tag": sub_categorys,
         "categories":Category.objects.all(),
         "sub_categories":SubCategory.objects.all()
+    })
+    
+def category(request, category_id):
+    category = Category.objects.get(id=category_id)
+    posts = Post.objects.filter(categories=category)
+    sub_categories = SubCategory.objects.filter(categories=category)
+    
+    return render(request, "posts/category.html", {
+        "posts":posts,
+        "category":category,
+        "sub_categories_tag": sub_categories
     })
     
 def aboutus(request):
@@ -88,6 +100,24 @@ def aboutus(request):
         "categories": tag_cate,
         "subcategories": tag_subcate,
     })
+    
+def login_view(request):
+    if request.method == "POST":
+        # Accessing username and password from form data
+        username = request.POST["username"]
+        password = request.POST["password"]
+        # Check of username and password are correct, returning User object if so
+        user = authenticate(request, username=username, password=password)
+        # If user object is returned, log in and route to index page:
+        if user:
+            login(request,user)
+            return HttpResponseRedirect(reverse("admin:index"))
+        # Otherwise, return login page again with new context
+        else:
+            return render(request,"posts/index.html", {
+                "message": "Invalid Credentials"
+            })
+    return render(request,"posts/index.html")
     
 # def search(request):
 #     ctx={}

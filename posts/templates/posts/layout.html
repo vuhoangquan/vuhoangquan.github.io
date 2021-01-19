@@ -17,6 +17,11 @@
             margin-right: auto;
             width: 60%;
         }
+        @media only screen and (max-width: 950px) {
+            /* #topbar {
+                display: none;
+            } */
+        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -74,7 +79,10 @@
         }
         function computerTime() {
             var now = new Date();
-            document.querySelector('#dateTime').innerHTML = now;
+            time = (now.getTime()/1000/3600) - (51*365*24) -(18*24)
+            // now = now.getTime()
+            // time = Math.round(now/2051)
+            document.querySelector('#dateTime').innerHTML = time;
         }
         function windowResize() {
             var mq = window.matchMedia("(max-width: 850px)");
@@ -83,16 +91,7 @@
                 brr.classList.add('w-100');
                 var list = document.getElementById("hightlight_thumbnail"); 
                 list.insertBefore(brr, list.childNodes[2]);
-            }
-            else {
-                // let brr = document.createElement('div');
-                // brr.classList.add('w-100');
-                // let text = document.createTextNode('Test2');
-                // brr.appendChild(text);
-                // var list = document.getElementById("hightlight_thumbnail"); 
-                // // list.insertBefore(brr, list.childNodes[2]);
-                // document.querySelector('#hightlight_thumbnail').append(brr);
-            }
+            }            
         }
 
     </script>
@@ -100,7 +99,7 @@
 </head>
 
 <body>
-    <nav id="top_menu" style="display:inline-flexbox;">
+    <div class="dropdown" id="topbar">
         <img src="{% static 'posts/VnExpress.jpg' %}" style="display:inline-flexbox;" alt="logo icon" width="230"
             height="70" />
         <link rel="stylesheet" href="{% static 'posts/VnExpress.jpg' %}" alt=" links" />
@@ -108,28 +107,33 @@
         <a style="display:inline-flexbox;font-size: 0.5cm;padding-right: 5%;" id="dateTime">date here</a>
         <button id="top_menu_button" type="button" class="btn btn-primary dropdown-toggle"  data-bs-toggle="dropdown">sign in</button>
             <!-- col-lg-2 col-sm-0 -->
-            <form class="dropdown-menu p-4">
+            <form class="dropdown-menu p-4" action="{% url 'posts:login' %}" method="post">
+                {% csrf_token %}
                 <div class="mb-3">
-                  <label for="exampleDropdownFormEmail2" class="form-label">Email address</label>
-                  <input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com">
+                  <label for="exampleDropdownFormEmail2" class="form-label">Username</label>
+                  <input type="text" name="username" class="form-control" id="exampleDropdownFormEmail2" placeholder="User name">
                 </div>
                 <div class="mb-3">
                   <label for="exampleDropdownFormPassword2" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
+                  <input type="password" name="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
                 </div>
-                <div class="mb-3">
+                <!--{% comment %} <div class="mb-3">
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="dropdownCheck2">
+                    <input type="checkbox" class="form-check-input" id="dropdownCheck2" >
                     <label class="form-check-label" for="dropdownCheck2">
                       Remember me
                     </label>
                   </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Sign in</button>
-              </form>        
-              <button id="top_menu_button" type="button" class="btn btn-primary" class="col-lg-2 col-sm-0"
+                </div> {% endcomment %} -->
+                <button type="submit" value="Login" class="btn btn-primary">Sign in</button>
+                {% if message %}
+                    <div>{{ message }}</div>
+                {% endif %}
+              </form>
+
+        <button id="top_menu_button" type="button" class="btn btn-primary" class="col-lg-2 col-sm-0"
             onclick="testWorldClockAPI">international</button>
-    </nav>
+    </div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -141,6 +145,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
                     {% for category in categories %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -153,7 +158,6 @@
                             <li><a class="dropdown-item" href="#">{{ sub_category.name }}</a></li>
                             {% endif %}
                             {% endfor %}
-
                         </ul>
                     </li>
                     {% endfor %}
@@ -164,11 +168,10 @@
                         Search
                     </button>
                     <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end" aria-labelledby="dropdownMenu2">
-                        
+                        <div id="replaceable-content"> empty... </div>
                         <li>
-                            <button id="replaceable-content" class="dropdown-item" type="button" > empty... </button>
-                        </li>
-                        
+                            <!-- <p id="replaceable-content" class="dropdown-item" > empty... </p> -->
+                        </li>  
                     </ul>
                 </form>
             </div>
@@ -181,23 +184,21 @@
     <br/>
     
 
-    <div class="botnav" style="background-color:royalblue;position:relative;height:150px; clear:both;">
-        <div style="position:absolute;left:10%;top:3%;">
+    <div style="background-color:royalblue;position:relative;height:150px; clear:both;">
+        <div style="position:absolute;left:3%;top:3%; width:300px">
             <p style="font-size:20px;">connect with us: </p>
             <a href="https://facebook.com/"><img style="border-radius: 25px;" src=" {% static 'posts/logofb.png' %}" alt="fb logo" height="50" width="50" /></a>
             <a href="https://youtube.com/"><img style="border-radius: 25px;" src="{% static 'posts/youtubelogo.jpg' %}" alt="fb logo" height="50" width="50" /></a>
             <a href="https://twitter.com/?lang=en"><img style="border-radius: 25px;" src="{% static 'posts/tweetlogo.png' %}" alt="tw logo" height="50" width="50" /></a>
         </div>
-        <div style="position:absolute;left:30%;top:5%; line-height:10px;">
+        <div style="position:absolute;left:35%;top:5%; line-height:10px;">
             <p style="font-size:20px;">contact information:</p>
             <p>phone no: +65 1234 5678</p>
             <p>email: test@localhost.com</p>
             <p>hotline: +65 999</p>
         </div>
-        <div style="position:absolute;left:85%;top:20%">
-            <img src="{% static 'posts/EBF3 icon small.png' %}" height="75" width="75" />
-        </div>
-        <div style="position:absolute;left:60%;top:15%;">
+
+        <div style="position:absolute;left:78%;top:15%; width:200px;">
             <a href="{% url 'posts:aboutus' %}" style="text-decoration:none;color:snow;font-size:25px;">About us</a>
         </div>
     </div>
