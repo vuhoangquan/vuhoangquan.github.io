@@ -1,0 +1,22 @@
+{
+  "name": "vuhoangquan.github.io",
+  "version": "1.0.0",
+  "description": "initial init",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm testing"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuhoangquan/vuhoangquan.github.io.git"
+  },
+  "keywords": [
+    "githubio"
+  ],
+  "author": "quan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vuhoangquan/vuhoangquan.github.io/issues"
+  },
+  "homepage": "https://github.com/vuhoangquan/vuhoangquan.github.io#readme"
+}
