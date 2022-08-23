@@ -4,7 +4,9 @@
   "description": "initial init",
   "main": "index.js",
   "scripts": {
-    "test": "npm testing"
+    "test": "npm testing",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -18,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/vuhoangquan/vuhoangquan.github.io/issues"
   },
-  "homepage": "https://github.com/vuhoangquan/vuhoangquan.github.io#readme"
+  "homepage": "https://github.com/vuhoangquan/vuhoangquan.github.io#readme",
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
+  }
 }
