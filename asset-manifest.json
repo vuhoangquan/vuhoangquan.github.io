@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/vuhoangquan/vuhoangquan.github.io/static/css/main.073c9b0a.css",
+    "main.js": "/vuhoangquan/vuhoangquan.github.io/static/js/main.28ceb205.js",
+    "static/media/logo.svg": "/vuhoangquan/vuhoangquan.github.io/static/media/logo.103b5fa18196d5665a7e12318285c916.svg",
+    "index.html": "/vuhoangquan/vuhoangquan.github.io/index.html",
+    "main.073c9b0a.css.map": "/vuhoangquan/vuhoangquan.github.io/static/css/main.073c9b0a.css.map",
+    "main.28ceb205.js.map": "/vuhoangquan/vuhoangquan.github.io/static/js/main.28ceb205.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.28ceb205.js"
+  ]
+}
