@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/vuhoangquan/vuhoangquan.github.io/issues"
   },
-  "homepage": "https://github.com/vuhoangquan/vuhoangquan.github.io#readme",
+  "homepage": "https://vuhoangquan.github.io/vuhoangquan.github.io",
   "devDependencies": {
     "gh-pages": "^4.0.0"
   },
