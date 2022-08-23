@@ -25,5 +25,10 @@
   "homepage": "https://github.com/vuhoangquan/vuhoangquan.github.io#readme",
   "devDependencies": {
     "gh-pages": "^4.0.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1"
   }
 }
