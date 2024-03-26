@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vutecksolution Home</title>
+    <style>
+      .product-showcase {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        /* padding: 20px; */
+      }
+      .product-card {
+        flex: 50%;
+        /* border: 1px solid #ddd; */
+        border-radius: 10px;
+        width: calc(33.33% - 20px);
+        /* margin-bottom: 20px; */
+        /* padding: 20px; */
+        box-sizing: border-box;
+        text-align: center;
+      }
+      .product-card img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body
+    style=
+  >
+    <div
+      style="
+        text-align: center;
+        height: 200px;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(
+        166deg,
+        rgba(0, 7, 36, 0.0718662464985994) 0%,
+        rgb(69, 231, 196) 45%,
+        rgb(32, 156, 250) 100%
+      );
+        margin-bottom: 20px;
+      "
+    >
+      <h1 style="justify-content: center; align-items: center; margin-bottom: 50px;padding-top: 50px;">
+        Welcome to Vutecksolution.com
+      </h1>
+
+      <h3 style="justify-content: center; align-items: center">
+        We are a Water filtration & software company
+      </h3>
+    </div>
+
+    <div class="product-showcase">
+      <div class="product-card">
+        <img src="https://images.pexels.com/photos/1108814/pexels-photo-1108814.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Product 1" />
+        <!-- <h2>Product 1</h2> -->
+      </div>
+      <div class="product-card">
+        <img src="https://images.pexels.com/photos/356049/pexels-photo-356049.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Product 2" />
+        <!-- <h2>Product 2</h2> -->
+      </div>
+      <div class="product-card">
+        <img src="https://images.pexels.com/photos/844874/pexels-photo-844874.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Product 3" />
+        <!-- <h2>Product 3</h2> -->
+      </div>
+      <div class="product-card">
+        <img src="https://images.pexels.com/photos/1476321/pexels-photo-1476321.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Product 3" />
+        <!-- <h2>Product 3</h2> -->
+      </div>
+    </div>
+
+    <div id="map"></div>
+<!-- 
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPqN4q0hUrJYJmMmdffDUn-z5s_9YtEbc&callback=initMap"
+      async
+      defer
+    ></script> -->
+
+    <script>
+      function initMap() {
+        // Specify the coordinates for the center of the map
+        var center = { lat: 40.12150192260742, lng: -100.45039367675781 };
+
+        // Create a new map instance
+        var map = new google.maps.Map(document.getElementById("map"), {
+          center: center,
+          zoom: 12,
+        });
+
+        // Add a marker to the map
+        var marker = new google.maps.Marker({
+          position: center,
+          map: map,
+          title: "Hello World!",
+        });
+      }
+    </script>
+  </body>
+</html>
