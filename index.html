@@ -72,12 +72,32 @@
       </div>
     </div>
     
-    <gmp-map center="40.12150192260742,-100.45039367675781" zoom="4" map-id="DEMO_MAP_ID">
-      <gmp-advanced-marker position="40.12150192260742,-100.45039367675781" title="My location"></gmp-advanced-marker>
-    </gmp-map>
-    
-    <script async 
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPqN4q0hUrJYJmMmdffDUn-z5s_9YtEbc&callback=console.debug&libraries=maps,marker&v=beta">
 
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPqN4q0hUrJYJmMmdffDUn-z5s_9YtEbc&callback=initMap"
+      async
+      defer
+    ></script> 
+
+    <script>
+      function initMap() {
+        // Specify the coordinates for the center of the map
+        var center = { lat: 40.12150192260742, lng: -100.45039367675781 };
+
+        // Create a new map instance
+        var map = new google.maps.Map(document.getElementById("map"), {
+          center: center,
+          zoom: 12,
+        });
+
+        // Add a marker to the map
+        var marker = new google.maps.Marker({
+          position: center,
+          map: map,
+          title: "Hello World!",
+        });
+      }
+    </script>
+    
   </body>
 </html>
